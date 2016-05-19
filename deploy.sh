@@ -10,7 +10,7 @@ JQ="jq --raw-output --exit-status"
 deploy_image() {
 
     docker login -u $DOCKER_USERNAME -p $DOCKER_PASS -e $DOCKER_EMAIL
-    docker push bellkev/circle-ecs:$CIRCLE_SHA1 | cat # workaround progress weirdness
+    docker push arkadiuszzaluski/circle-ecs:$CIRCLE_SHA1 | cat # workaround progress weirdness
 
 }
 
@@ -21,7 +21,7 @@ make_task_def() {
     task_template='[
 	{
 	    "name": "uwsgi",
-	    "image": "bellkev/circle-ecs:%s",
+	    "image": "arkadiuszzaluski/circle-ecs:%s",
 	    "essential": true,
 	    "memory": 200,
 	    "cpu": 10
@@ -31,7 +31,7 @@ make_task_def() {
 	    "links": [
 		"uwsgi"
 	    ],
-	    "image": "bellkev/nginx-base:stable",
+	    "image": "arkadiuszzaluski/nginx-base:stable",
 	    "portMappings": [
 		{
 		    "containerPort": 8000,

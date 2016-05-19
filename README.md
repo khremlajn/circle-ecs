@@ -18,3 +18,5 @@ DOCKER_USERNAME
 Additionally, an EC2 Container Service cluster must already be set up on AWS. See the [EC2 Container Service
 Resources](https://aws.amazon.com/ecs/) to get started. You will also need to update the cluster and family
 names in deploy.sh to match your cluster.
+
+test

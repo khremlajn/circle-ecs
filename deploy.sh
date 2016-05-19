@@ -13,7 +13,7 @@ deploy_image() {
     #docker push arkadiuszzaluski/circle-ecs:$CIRCLE_SHA1 | cat # workaround progress weirdness
     
     aws ecr get-login --region us-west-2
-    #docker build -t circle-ecs-repository .
+    docker build -t circle-ecs-repository .
     docker tag circle-ecs-repository:latest 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:latest
     docker push 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:latest
 

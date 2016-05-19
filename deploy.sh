@@ -8,9 +8,14 @@ set -o pipefail
 JQ="jq --raw-output --exit-status"
 
 deploy_image() {
-
-    docker login -u $DOCKER_USERNAME -p $DOCKER_PASS -e $DOCKER_EMAIL
-    docker push arkadiuszzaluski/circle-ecs:$CIRCLE_SHA1 | cat # workaround progress weirdness
+	
+    #docker login -u $DOCKER_USERNAME -p $DOCKER_PASS -e $DOCKER_EMAIL
+    #docker push arkadiuszzaluski/circle-ecs:$CIRCLE_SHA1 | cat # workaround progress weirdness
+    
+    aws ecr get-login --region us-west-2
+    #docker build -t circle-ecs-repository .
+    docker tag circle-ecs-repository:latest 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:latest
+    docker push 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:latest
 
 }
 
@@ -91,5 +96,5 @@ deploy_cluster() {
     return 1
 }
 
-#deploy_image
+deploy_image
 deploy_cluster

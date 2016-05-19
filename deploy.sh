@@ -96,5 +96,5 @@ deploy_cluster() {
     return 1
 }
 
-#deploy_image
+deploy_image
 deploy_cluster

@@ -63,10 +63,7 @@ deploy_cluster() {
     make_task_def
     register_definition
     #aws ecs create-service --service-name ecs-simple-service --task-definition ecs-demo --desired-count 10
-    if [[ $(aws ecs create-service --cluster circle-ecs --service-name circle-ecs-service --task-definition ecs-demo --desired-count 5)]]; then
-        echo "Error updating service."
-        return 1
-    fi
+    aws ecs create-service --cluster circle-ecs --service-name circle-ecs-service --task-definition ecs-demo --desired-count 5
     return 0
 }
 

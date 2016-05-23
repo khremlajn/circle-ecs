@@ -11,12 +11,12 @@ deploy_image() {
 	
     #docker login -u $DOCKER_USERNAME -p $DOCKER_PASS -e $DOCKER_EMAIL
     #docker push arkadiuszzaluski/circle-ecs:$CIRCLE_SHA1 | cat # workaround progress weirdness
-    
-    aws ecr get-login --region us-west-2
-    docker build -t circle-ecs-repository .
+    #aws ecr get-login --region us-west-2
+    #docker build -t circle-ecs-repository .
+    autorization_token=$(aws ecr get-authorization-token --registry-ids 792082350620 --output text --query authorizationData[].authorizationToken | base64 --decode | cut -d: -f2)
+    docker login -u AWS -p $autorization_token -e none https://792082350620.dkr.ecr.us-west-2.amazonaws.com
     docker tag circle-ecs-repository:latest 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:latest
     docker push 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:latest
-
 }
 
 # reads $CIRCLE_SHA1, $host_port
@@ -96,5 +96,5 @@ deploy_cluster() {
     return 1
 }
 
-#deploy_image
-deploy_cluster
+deploy_image
+#deploy_cluster

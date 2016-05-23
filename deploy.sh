@@ -15,7 +15,7 @@ deploy_image() {
     docker build -t circle-ecs-repository .
     autorization_token=$(aws ecr get-authorization-token --registry-ids 792082350620 --output text --query authorizationData[].authorizationToken | base64 --decode | cut -d: -f2)
     docker login -u AWS -p $autorization_token -e none https://792082350620.dkr.ecr.us-west-2.amazonaws.com
-    docker tag circle-ecs-repository:$CIRCLE_SHA1 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:$CIRCLE_SHA1
+    docker tag circle-ecs-repository:latest 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:$CIRCLE_SHA1
     docker push 792082350620.dkr.ecr.us-west-2.amazonaws.com/circle-ecs-repository:$CIRCLE_SHA1
 }
 
